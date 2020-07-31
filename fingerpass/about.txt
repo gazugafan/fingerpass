@@ -1,3 +1,8 @@
+This is free software available at github.com/gazugafan/fingerpass
+
+Fingerprint icon from Google's Material icon pack
+
+
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
