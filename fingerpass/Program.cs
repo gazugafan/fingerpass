@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
+using System.Security.Principal;
+using System.Diagnostics;
 
 namespace gazugafan.fingerpass.tray
 {

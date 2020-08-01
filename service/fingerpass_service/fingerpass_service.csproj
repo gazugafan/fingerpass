@@ -39,9 +39,6 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="fastipc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\fastipc.1.0.32\lib\net40\fastipc.dll</HintPath>
-    </Reference>
     <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <HintPath>..\..\packages\protobuf-net.2.4.0\lib\net40\protobuf-net.dll</HintPath>
     </Reference>
@@ -92,6 +89,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\fast-ipc\src\fastipc\fastipc.csproj">
+      <Project>{EA2C8E37-CBB1-4BF5-A7BB-AC99FAC5F672}</Project>
+      <Name>fastipc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\messages\messages.csproj">
       <Project>{1da4e4e8-bbc4-4362-8eb2-3ac4b31ee582}</Project>
       <Name>messages</Name>

@@ -1,30 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="7fa58b28-7ec0-42d7-a7fa-95913e2be0cc" Name="FingerPass" Language="1033" Version="1.0.0.0" Manufacturer="gazugafan" UpgradeCode="14175968-06c5-43cc-b358-8c6ea51b6f15">
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension"><?define fingerpass_TargetDir=$(var.fingerpass.TargetDir)?><?define messages_TargetDir=$(var.messages.TargetDir)?><?define fingerpass_service_TargetDir=$(var.fingerpass_service.TargetDir)?><?define WinBioNET_TargetDir=$(var.WinBioNET.TargetDir)?><?define NetFx472MinRelease = 461808 ?>
+	
+	<Product Id="7d18a496-a136-493f-9496-e763a813b6a5" Name="FingerPass" Language="1033" Version="1.0.0.0" Manufacturer="gazugafan" UpgradeCode="5d4bb806-c91a-4e53-aa21-d5540284d3dc">
+		
+		<Package Description="A fingerprint-enabled password manager" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<PropertyRef Id="WIX_IS_NETFRAMEWORK_472_OR_LATER_INSTALLED"/>
+
+		<Condition Message="This application requires .NET Framework 4.7.2. Please install the .NET Framework then run this installer again.">
+			<![CDATA[WIX_IS_NETFRAMEWORK_472_OR_LATER_INSTALLED]]>
+		</Condition>
+		
+		<UI>
+			<UIRef Id="WixUI_Minimal" />
+			<Publish Dialog="ExitDialog"
+				Control="Finish"
+				Event="DoAction"
+				Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
+		</UI>
+		<Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Start FingerPass Now" />
+		<Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1"/>
+
+		<Property Id="WixShellExecTarget" Value="[#fingerpass.exe]" />
+		<CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
+
+		<Icon Id="icon.ico" SourceFile="..\fingerpass\Icons\white.ico" />
+		<Property Id="ARPPRODUCTICON" Value="icon.ico" />
+
+		<WixVariable Id="WixUILicenseRtf" Value="..\license.rtf" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-		<MediaTemplate />
+		<MediaTemplate EmbedCab="yes" />
 
-		<Feature Id="ProductFeature" Title="FingerPassSetup" Level="1">
+		<Feature Id="ProductFeature" Title="FingerPass" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
+			<ComponentGroupRef Id="Icons_files" />
+			<ComponentGroupRef Id="Sounds_files" />
+			<ComponentRef Id="ApplicationShortcut" />
 		</Feature>
 	</Product>
+	
+	<Fragment>
+		<PropertyRef Id="WIXNETFX4RELEASEINSTALLED" />
+		<Property Id="WIX_IS_NETFRAMEWORK_472_OR_LATER_INSTALLED" Secure="yes" />
+		<SetProperty Id="WIX_IS_NETFRAMEWORK_472_OR_LATER_INSTALLED" Value="1" After="AppSearch">
+			WIXNETFX4RELEASEINSTALLED >= "#$(var.NetFx472MinRelease)"
+		</SetProperty>
+	</Fragment>
+	
+	<Fragment>
+		<DirectoryRef Id="ApplicationProgramsFolder">
+			<Component Id="ApplicationShortcut" Guid="0af417fc-7138-4cc1-ac14-3e73a67f62a2">
+				<Shortcut Icon="icon.ico" Id="ApplicationStartMenuShortcut" Name="FingerPass" Description="FingerPass" Target="[INSTALLFOLDER]fingerpass.exe" WorkingDirectory="INSTALLFOLDER" />
+				<RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall" />
+				<RegistryValue Root="HKCU" Key="Software\FingerPass" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+			</Component>
+		</DirectoryRef>
+	</Fragment>
 
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="FingerPassSetup" />
+				<Directory Id="INSTALLFOLDER" Name="FingerPass">
+				  <Directory Id="Sounds" Name="Sounds" />
+				  <Directory Id="Icons" Name="Icons" />
+				</Directory>
+				<Directory Id="ProgramMenuFolder">
+					<Directory Id="ApplicationProgramsFolder" Name="FingerPass" />
+				</Directory>
 			</Directory>
 		</Directory>
 	</Fragment>
 
 	<Fragment>
 		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
-			<!-- <Component Id="ProductComponent"> -->
-				<!-- TODO: Insert files, registry keys, and other resources here. -->
-			<!-- </Component> -->
+			<Component Id="about.txt" Guid="22e90d7a-4e49-4c43-81aa-f0cb5bd4a340">
+			  <File Id="about.txt" Name="about.txt" Source="$(var.fingerpass_TargetDir)about.txt" />
+			</Component>
+			<Component Id="about.bmp" Guid="137a4150-6c2a-4106-80ba-be4fa1c22570">
+			  <File Id="about.bmp" Name="about.bmp" Source="$(var.fingerpass_TargetDir)about.bmp" />
+			</Component>
+			<Component Id="fingerpass.exe" Guid="8141cbab-78f9-43ad-958c-7fa24d4ca29c">
+			  <File Id="fingerpass.exe" Name="fingerpass.exe" Source="$(var.fingerpass_TargetDir)fingerpass.exe" />
+			</Component>
+			<Component Id="fingerpass.exe.config" Guid="8b890ca0-b732-43d0-a635-c84c8a5d8aa0">
+			  <File Id="fingerpass.exe.config" Name="fingerpass.exe.config" Source="$(var.fingerpass_TargetDir)fingerpass.exe.config" />
+			</Component>
+			<Component Id="fastipc.dll" Guid="1eb4a856-eec7-409b-8352-417cc69e814f">
+			  <File Id="fastipc.dll" Name="fastipc.dll" Source="$(var.fingerpass_TargetDir)fastipc.dll" />
+			</Component>
+			<Component Id="messages.dll" Guid="6e43e0ed-53ff-4a8f-8dd6-00010860fa5b">
+			  <File Id="messages.dll" Name="messages.dll" Source="$(var.messages_TargetDir)messages.dll" />
+			</Component>
+			<Component Id="Newtonsoft.Json.dll" Guid="7fd15ff0-0f7b-4353-ba8a-9c46d3bdbc6a">
+			  <File Id="Newtonsoft.Json.dll" Name="Newtonsoft.Json.dll" Source="$(var.fingerpass_TargetDir)Newtonsoft.Json.dll" />
+			</Component>
+			<Component Id="protobuf_net.dll" Guid="ac66e3c1-bba7-41c0-8d14-23c2f4c944ba">
+			  <File Id="protobuf_net.dll" Name="protobuf-net.dll" Source="$(var.fingerpass_TargetDir)protobuf-net.dll" />
+			</Component>
+			<Component Id="fingerpass_service.exe" Guid="72d2cf01-1c37-494b-84f5-75290a235e3c">
+			  <File Id="fingerpass_service.exe" Name="fingerpass_service.exe" Source="$(var.fingerpass_service_TargetDir)fingerpass_service.exe" />
+				<ServiceInstall Id="ServiceInstaller" Name="FingerPass" Type="ownProcess" Vital="yes" DisplayName="FingerPass" Description="Allows FingerPass to listen for fingerprints" Start="auto" Account="LocalSystem" ErrorControl="normal" Arguments=" /start FingerPass" Interactive="no" />
+				<ServiceControl Id="StartService" Name="FingerPass" Stop="both" Start="install" Remove="uninstall" Wait="yes" />
+			</Component>
+			<Component Id="fingerpass_service.exe.config" Guid="00c7fcf6-7cd6-4326-8971-d6deed5e8bbd">
+			  <File Id="fingerpass_service.exe.config" Name="fingerpass_service.exe.config" Source="$(var.fingerpass_service_TargetDir)fingerpass_service.exe.config" />
+			</Component>
+			<Component Id="WinBioNET.dll" Guid="d2a6e392-3927-424a-af41-721ec29a554c">
+			  <File Id="WinBioNET.dll" Name="WinBioNET.dll" Source="$(var.WinBioNET_TargetDir)WinBioNET.dll" />
+			</Component>
 		</ComponentGroup>
 	</Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="Icons_files" Directory="Icons">
+      <Component Id="Icons_black.ico" Guid="b4983294-7515-44fe-8f73-4e6f408596e1">
+        <File Id="Icons_black.ico" Name="black.ico" Source="$(var.fingerpass_TargetDir)Icons\black.ico" />
+      </Component>
+      <Component Id="Icons_green.ico" Guid="f72dc549-623b-4a37-9385-7f8472e645c7">
+        <File Id="Icons_green.ico" Name="green.ico" Source="$(var.fingerpass_TargetDir)Icons\green.ico" />
+      </Component>
+      <Component Id="Icons_grey.ico" Guid="6cb610da-ac54-4e7f-8934-a4cb26e5aa1e">
+        <File Id="Icons_grey.ico" Name="grey.ico" Source="$(var.fingerpass_TargetDir)Icons\grey.ico" />
+      </Component>
+      <Component Id="Icons_red.ico" Guid="c6cffe8a-2496-4980-9ad1-d110f90a48c3">
+        <File Id="Icons_red.ico" Name="red.ico" Source="$(var.fingerpass_TargetDir)Icons\red.ico" />
+      </Component>
+      <Component Id="Icons_white.ico" Guid="13f69410-ae95-4c0c-883b-7da35117c159">
+        <File Id="Icons_white.ico" Name="white.ico" Source="$(var.fingerpass_TargetDir)Icons\white.ico" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="Sounds_files" Directory="Sounds">
+      <Component Id="Sounds_wrong.wav" Guid="c1cb48a9-2c43-45db-90aa-8cdf54e9f257">
+        <File Id="Sounds_wrong.wav" Name="wrong.wav" Source="$(var.fingerpass_TargetDir)Sounds\wrong.wav" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
 </Wix>

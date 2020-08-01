@@ -31,35 +31,42 @@ namespace gazugafan.fingerpass
         /// <returns></returns>
 		public static string GetFocusedApplicationName()
 		{
-            IntPtr handle = GetForegroundWindow();
-            string fileName = "";
-            string name = "";
-            uint pid = 0;
-            GetWindowThreadProcessId(handle, out pid);
-
-            Process p = Process.GetProcessById((int)pid);
-            var processname = p.ProcessName;
-
-            switch (processname)
+            try
             {
-                case "explorer": //metro processes
-                case "WWAHost":
-                    return processname;
-                default:
-                    break;
+                IntPtr handle = GetForegroundWindow();
+                string fileName = "";
+                string name = "";
+                uint pid = 0;
+                GetWindowThreadProcessId(handle, out pid);
+
+                Process p = Process.GetProcessById((int)pid);
+                var processname = p.ProcessName;
+
+                switch (processname)
+                {
+                    case "explorer": //metro processes
+                    case "WWAHost":
+                        return processname;
+                    default:
+                        break;
+                }
+
+                string wmiQuery = string.Format("SELECT ProcessId, ExecutablePath FROM Win32_Process WHERE ProcessId LIKE '{0}'", pid.ToString());
+                var pro = new ManagementObjectSearcher(wmiQuery).Get().Cast<ManagementObject>().FirstOrDefault();
+                fileName = (string)pro["ExecutablePath"];
+                // Get the file version
+                FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(fileName);
+                // Get the file description
+                name = myFileVersionInfo.FileDescription;
+                if (name == "")
+                    return myFileVersionInfo.FileName;
+
+                return name;
             }
-
-            string wmiQuery = string.Format("SELECT ProcessId, ExecutablePath FROM Win32_Process WHERE ProcessId LIKE '{0}'", pid.ToString());
-            var pro = new ManagementObjectSearcher(wmiQuery).Get().Cast<ManagementObject>().FirstOrDefault();
-            fileName = (string)pro["ExecutablePath"];
-            // Get the file version
-            FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(fileName);
-            // Get the file description
-            name = myFileVersionInfo.FileDescription;
-            if (name == "")
-                return myFileVersionInfo.FileName;
-
-            return name;
+            catch(Exception ex)
+			{
+                return "";
+			}
         }
 
         /// <summary>
@@ -68,16 +75,23 @@ namespace gazugafan.fingerpass
         /// <returns></returns>
 		public static string GetFocusedWindowTitle()
 		{
-            var strTitle = string.Empty;
-            var handle = GetForegroundWindow();
-            // Obtain the length of the text   
-            var intLength = GetWindowTextLength(handle) + 1;
-            var stringBuilder = new StringBuilder(intLength);
-            if (GetWindowText(handle, stringBuilder, intLength) > 0)
+            try
             {
-                strTitle = stringBuilder.ToString();
+                var strTitle = string.Empty;
+                var handle = GetForegroundWindow();
+                // Obtain the length of the text   
+                var intLength = GetWindowTextLength(handle) + 1;
+                var stringBuilder = new StringBuilder(intLength);
+                if (GetWindowText(handle, stringBuilder, intLength) > 0)
+                {
+                    strTitle = stringBuilder.ToString();
+                }
+                return strTitle;
             }
-            return strTitle;
+            catch(Exception ex)
+			{
+                return "";
+			}
         }
     }
 }

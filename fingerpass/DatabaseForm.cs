@@ -28,6 +28,7 @@ namespace gazugafan.fingerpass
 
 		private string _currentProgramName = null;
 		private string _currentWindowTitle = null;
+		private int _currentMatchIndex = -2;
 		private string _newProgramName = null;
 		private string _newWindowTitle = null;
 
@@ -103,17 +104,42 @@ namespace gazugafan.fingerpass
 				this.windowLabel.Text = _currentWindowTitle;
 			}
 
+			int matchingIndex = -1;
 			if (_currentProgramName != null)
 			{
 				try
 				{
-					int matchingIndex = Program.keyDatabase.FindMatchingPasswordIndex(_currentProgramName, _currentWindowTitle);
+					matchingIndex = Program.keyDatabase.FindMatchingPasswordIndex(_currentProgramName, _currentWindowTitle);
 					Password password = Program.keyDatabase.database.Passwords[matchingIndex];
 					this.currentMatchLabel.Text = "Entry #" + (matchingIndex + 1).ToString() + " (" + password.Program + " / " + password.Title + ")";
+					this.currentMatchLabel.ForeColor = Color.Green;
 				}
 				catch(Exception ex)
 				{
 					this.currentMatchLabel.Text = "None of your passwords match this Program and Window Title";
+					this.currentMatchLabel.ForeColor = SystemColors.ControlText;
+				}
+
+				//if the matching password has changed, update the highlight...
+				if (matchingIndex != _currentMatchIndex)
+				{
+					if (_currentMatchIndex >= 0)
+					{
+						passwordsDataGrid.Rows[_currentMatchIndex].DefaultCellStyle.BackColor = default;
+						passwordsDataGrid.Rows[_currentMatchIndex].DefaultCellStyle.ForeColor = default;
+						passwordsDataGrid.Rows[_currentMatchIndex].DefaultCellStyle.SelectionBackColor = default;
+						passwordsDataGrid.Rows[_currentMatchIndex].DefaultCellStyle.SelectionForeColor = default;
+					}
+
+					if (matchingIndex >= 0)
+					{
+						passwordsDataGrid.Rows[matchingIndex].DefaultCellStyle.BackColor = Color.Green;
+						passwordsDataGrid.Rows[matchingIndex].DefaultCellStyle.ForeColor = Color.White;
+						passwordsDataGrid.Rows[matchingIndex].DefaultCellStyle.SelectionBackColor = Color.LightGreen;
+						passwordsDataGrid.Rows[matchingIndex].DefaultCellStyle.SelectionForeColor = Color.DarkGreen;
+					}
+
+					_currentMatchIndex = matchingIndex;
 				}
 			}
 		}

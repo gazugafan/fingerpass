@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("fingerpass_service")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("FingerPass Service")]
+[assembly: AssemblyDescription("Allows FingerPass to listen for fingerprints")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("gazugafan")]
-[assembly: AssemblyProduct("fingerpass_service")]
+[assembly: AssemblyProduct("FingerPass Service")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

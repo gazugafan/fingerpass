@@ -52,12 +52,18 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>white.ico</ApplicationIcon>
+    <ApplicationIcon>Icons\white.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -132,9 +138,6 @@
     <Compile Include="TrayIcon.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="fastipc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\fastipc.1.0.32\lib\net40\fastipc.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -179,9 +182,12 @@
     <Content Include="Sounds\wrong.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="white.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\fast-ipc\src\fastipc\fastipc.csproj">
+      <Project>{EA2C8E37-CBB1-4BF5-A7BB-AC99FAC5F672}</Project>
+      <Name>fastipc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\messages\messages.csproj">
       <Project>{1da4e4e8-bbc4-4362-8eb2-3ac4b31ee582}</Project>
       <Name>messages</Name>

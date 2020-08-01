@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 //using System.Timers;
 using Microsoft.Win32;
-using fastipc.Bus;
 using gazugafan.fingerpass.messages;
 using System.Timers;
 using System.Linq;
+using fastipc.Bus;
 
 namespace gazugafan.fingerpass.tray
 {
@@ -47,6 +47,11 @@ namespace gazugafan.fingerpass.tray
 		/// </summary>
 		public TrayIcon()
 		{
+			//maybe reset settings when debugging...
+#if DEBUG
+			//Properties.Settings.Default.Reset();
+#endif
+
 			this._status = Statuses.Listening;
 
 			//setup hourglass animation icons...
@@ -112,18 +117,30 @@ namespace gazugafan.fingerpass.tray
 			//if no master password has been set, start the onboarding guide...
 			if (Properties.Settings.Default.MasterCheckHash == "")
 			{
-				SendToast("Welcome to FingerPass!", "Please set a master password and check out the settings to get started.");
+				SendToast("Welcome to FingerPass!", "Please set a master password to get started.");
 				new SetMasterPasswordForm().ShowDialog();
 
 				//if they didn't set a password, we should just quit...
 				if (Properties.Settings.Default.MasterCheckHash == "")
 				{
+					SendToast("FingerPass", "You need to set a master password to use FingerPass. Quitting for now. Please try again!");
 					Dispose();
 					Application.Exit();
 					Environment.Exit(0);
 				}
 				else
+				{
+					SendToast("FingerPass", "Cool! Now your passwords can be kept safe. Check out the basic program settings next...");
 					new SettingsForm().ShowDialog();
+
+					if (Program.keyDatabase.database.Passwords.Count == 0)
+					{
+						SendToast("FingerPass", "Nice! Finally, here's your password database. Safely store passwords here and fill them into other programs using your fingerprint.");
+						new DatabaseForm().ShowDialog();
+					}
+
+					SendToast("FingerPass", "All done! FingerPass will stay in the tray now. Right click the fingerprint icon to get back to the settings and password database. Later!");
+				}
 			}
 
 			_notifyIcon.BalloonTipClicked += new EventHandler(notifyIcon_BalloonTipClicked);

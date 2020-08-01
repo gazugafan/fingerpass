@@ -665,7 +665,14 @@ namespace gazugafan.fingerpass
 		/// <returns></returns>
 		public string DecryptedPassword()
 		{
-			return gazugafan.fingerpass.tray.Program.keyDatabase.Unprotect(this.PasswordHash);
+			try
+			{
+				return gazugafan.fingerpass.tray.Program.keyDatabase.Unprotect(this.PasswordHash);
+			}
+			catch(CryptographicException)
+			{
+				throw new Exception("There was a problem decrypting this password. Are you sure you're logged in as the same user that encrypted it?");
+			}
 		}
 
 		/// <summary>
