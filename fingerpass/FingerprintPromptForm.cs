@@ -27,6 +27,8 @@ namespace gazugafan.fingerpass
 
 		private void FingerprintPromptForm_Load(object sender, EventArgs e)
 		{
+			this.FormBorderStyle = FormBorderStyle.FixedDialog; //some DPI madness requires this to be set to sizable to start
+
 			//if the database isn't already unlocked, we just need to prompt for the master password instead...
 			if (Program.keyDatabase.IsUnlocked())
 			{

@@ -23,7 +23,7 @@ namespace gazugafan.fingerpass.tray
 		private Statuses _status;
 		private NotifyIcon _notifyIcon;
 		public NamedPipeBus bus;
-		public bool isLightMode = true;
+		public bool isTaskbarLight = true;
 		private BusHandler _busHandler;
 		private bool _isDisposed;
 		private Icon _iconNormal;
@@ -55,19 +55,29 @@ namespace gazugafan.fingerpass.tray
 			this._status = Statuses.Listening;
 
 			//setup hourglass animation icons...
-			IsDarkMode();
-			_iconNormal = new Icon(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Icons/" + (isLightMode?"black.ico":"white.ico")));
+			IsTaskbarDark();
+			_iconNormal = new Icon(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Icons/" + (isTaskbarLight?"black.ico":"white.ico")));
 			_iconGrey = new Icon(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Icons/grey.ico"));
 			_iconRed = new Icon(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Icons/red.ico"));
 			_iconGreen = new Icon(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Icons/green.ico"));
 
-			//create bus with service...
-			var pipeName = new SimpleStringPipeName(
-				name: "gazugafanFingerpass",
-				side: Side.Out
-			);
-			bus = new NamedPipeBus(pipeName: pipeName);
-			_busHandler = new BusHandler(bus, this);
+			try
+			{
+				//create bus with service...
+				var pipeName = new SimpleStringPipeName(
+					name: "gazugafanFingerpass",
+					side: Side.Out
+				);
+				bus = new NamedPipeBus(pipeName: pipeName);
+				_busHandler = new BusHandler(bus, this);
+			}
+			catch(Exception)
+			{
+				MessageBox.Show("There was a problem connecting to the FingerPass Windows service. Maybe another user is logged on and using FingerPass already?", "FingerPass", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+
+			//handle shutdown or logoff...
+			SystemEvents.SessionEnded += OnShutdown;
 
 			//create the tray icon...
 			_notifyIcon = CreateNotifyIcon();
@@ -82,6 +92,20 @@ namespace gazugafan.fingerpass.tray
 
 			//get the status from the service (also announcing that the tray icon is now available)...
 			Publish(new GetStatus());
+		}
+
+		/// <summary>
+		/// When shutting down or logging off, signal to the service that the tray is closing so it can release focus
+		/// </summary>
+		private void OnShutdown(object sender, SessionEndedEventArgs e)
+		{
+			try
+			{
+				Publish(new TrayClose());
+				bus.Dispose();
+			}
+			catch (Exception)
+			{ }
 		}
 
 		/// <summary>
@@ -146,6 +170,7 @@ namespace gazugafan.fingerpass.tray
 			_notifyIcon.BalloonTipClicked += new EventHandler(notifyIcon_BalloonTipClicked);
 		}
 
+
 		private void notifyIcon_BalloonTipClicked(object sender, EventArgs e)
 		{
 			if (onToastClick != null)
@@ -172,8 +197,18 @@ namespace gazugafan.fingerpass.tray
 			{
 				if (isDisposing)
 				{
-					Publish(new TrayClose());
-					bus.Dispose();
+					try
+					{
+						//remove event handler for shutdown or logoff...
+						SystemEvents.SessionEnded -= OnShutdown;
+
+						//tell the service that the tray is closing...
+						Publish(new TrayClose());
+						bus.Dispose();
+					}
+					catch (Exception)
+					{ }
+
 					_notifyIcon.Dispose();
 				}
 
@@ -194,18 +229,18 @@ namespace gazugafan.fingerpass.tray
 			return notifyIcon;
 		}
 
-		public bool IsDarkMode()
+		public bool IsTaskbarDark()
 		{
-			isLightMode = true;
+			isTaskbarLight = true;
 			try
 			{
-				var v = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", "1");
+				var v = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "SystemUsesLightTheme", "1");
 				if (v != null && v.ToString() == "0")
-					isLightMode = false;
+					isTaskbarLight = false;
 			}
 			catch { }
 
-			return isLightMode;
+			return isTaskbarLight;
 		}
 
 		/// <summary>

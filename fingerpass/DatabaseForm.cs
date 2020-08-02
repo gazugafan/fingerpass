@@ -41,6 +41,8 @@ namespace gazugafan.fingerpass
 
 		private void DatabaseForm_Load(object sender, EventArgs e)
 		{
+			this.FormBorderStyle = FormBorderStyle.FixedDialog; //some DPI madness requires this to be set to sizable to start
+
 			int[] widths = new int[5];
 			widths[0] = 25;
 			widths[1] = 25;
@@ -620,6 +622,12 @@ namespace gazugafan.fingerpass
 					}
 				}
 			}
+		}
+
+		private void DatabaseForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			_updateWindowTimer.Stop();
+			_updateWindowTimer = null;
 		}
 	}
 }

@@ -22,6 +22,8 @@ namespace gazugafan.fingerpass
 
 		private void SettingsForm_Load(object sender, EventArgs e)
 		{
+			this.FormBorderStyle = FormBorderStyle.FixedDialog; //some DPI madness requires this to be set to sizable to start
+
 			Dictionary<string, string> soundOptions = GetSoundOptions();
 			SoundSelect.Items.AddRange(soundOptions.Values.ToArray());
 

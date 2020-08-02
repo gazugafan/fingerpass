@@ -4,9 +4,11 @@
 	<Product Id="7d18a496-a136-493f-9496-e763a813b6a5" Name="FingerPass" Language="1033" Version="1.0.0.0" Manufacturer="gazugafan" UpgradeCode="5d4bb806-c91a-4e53-aa21-d5540284d3dc">
 		
 		<Package Description="A fingerprint-enabled password manager" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
-
+		
+		<WixVariable Id="WixUIDialogBmp" Value="dialog.bmp" />
+		
 		<PropertyRef Id="WIX_IS_NETFRAMEWORK_472_OR_LATER_INSTALLED"/>
-
+		
 		<Condition Message="This application requires .NET Framework 4.7.2. Please install the .NET Framework then run this installer again.">
 			<![CDATA[WIX_IS_NETFRAMEWORK_472_OR_LATER_INSTALLED]]>
 		</Condition>

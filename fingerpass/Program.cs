@@ -23,9 +23,6 @@ namespace gazugafan.fingerpass.tray
 		[STAThread]
 		static void Main(string[] args)
 		{
-			if (Environment.OSVersion.Version.Major >= 6)
-				SetProcessDPIAware();
-
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 
@@ -45,7 +42,6 @@ namespace gazugafan.fingerpass.tray
 				trayIcon = new TrayIcon();
 				trayIcon.Show();
 
-				Application.EnableVisualStyles();
 				Application.Run();
 			}
 			finally
@@ -53,8 +49,5 @@ namespace gazugafan.fingerpass.tray
 				mutex.ReleaseMutex();
 			}
 		}
-
-		[System.Runtime.InteropServices.DllImport("user32.dll")]
-		private static extern bool SetProcessDPIAware();
 	}
 }

@@ -90,7 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\fast-ipc\src\fastipc\fastipc.csproj">
-      <Project>{EA2C8E37-CBB1-4BF5-A7BB-AC99FAC5F672}</Project>
+      <Project>{4d60cb7e-3502-469d-88e5-9aa7024c4f0e}</Project>
       <Name>fastipc</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\messages\messages.csproj">

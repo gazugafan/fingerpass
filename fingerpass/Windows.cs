@@ -58,12 +58,17 @@ namespace gazugafan.fingerpass
                 FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(fileName);
                 // Get the file description
                 name = myFileVersionInfo.FileDescription;
-                if (name == "")
-                    return myFileVersionInfo.FileName;
+                if (name == "" || name == null)
+                {
+                    if (myFileVersionInfo.FileName != null)
+                        return System.IO.Path.GetFileName(myFileVersionInfo.FileName);
+                    else
+                        return "";
+                }
 
                 return name;
             }
-            catch(Exception ex)
+            catch(Exception)
 			{
                 return "";
 			}

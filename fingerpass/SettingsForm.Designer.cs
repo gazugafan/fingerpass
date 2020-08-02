@@ -45,9 +45,10 @@
 			// 
 			// saveButton
 			// 
-			this.saveButton.Location = new System.Drawing.Point(301, 248);
+			this.saveButton.Location = new System.Drawing.Point(201, 205);
+			this.saveButton.Margin = new System.Windows.Forms.Padding(2);
 			this.saveButton.Name = "saveButton";
-			this.saveButton.Size = new System.Drawing.Size(139, 42);
+			this.saveButton.Size = new System.Drawing.Size(113, 34);
 			this.saveButton.TabIndex = 0;
 			this.saveButton.Text = "Save Changes";
 			this.saveButton.UseVisualStyleBackColor = true;
@@ -56,9 +57,10 @@
 			// cancelButton
 			// 
 			this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.cancelButton.Location = new System.Drawing.Point(191, 248);
+			this.cancelButton.Location = new System.Drawing.Point(120, 205);
+			this.cancelButton.Margin = new System.Windows.Forms.Padding(2);
 			this.cancelButton.Name = "cancelButton";
-			this.cancelButton.Size = new System.Drawing.Size(104, 42);
+			this.cancelButton.Size = new System.Drawing.Size(78, 34);
 			this.cancelButton.TabIndex = 1;
 			this.cancelButton.Text = "Cancel";
 			this.cancelButton.UseVisualStyleBackColor = true;
@@ -67,9 +69,10 @@
 			// startupCheckbox
 			// 
 			this.startupCheckbox.AutoSize = true;
-			this.startupCheckbox.Location = new System.Drawing.Point(19, 32);
+			this.startupCheckbox.Location = new System.Drawing.Point(14, 26);
+			this.startupCheckbox.Margin = new System.Windows.Forms.Padding(2);
 			this.startupCheckbox.Name = "startupCheckbox";
-			this.startupCheckbox.Size = new System.Drawing.Size(197, 21);
+			this.startupCheckbox.Size = new System.Drawing.Size(147, 17);
 			this.startupCheckbox.TabIndex = 24;
 			this.startupCheckbox.Text = "Run at startup (in the tray)";
 			this.startupCheckbox.UseVisualStyleBackColor = true;
@@ -78,9 +81,10 @@
 			// 
 			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.button1.Font = new System.Drawing.Font("Webdings", 10F);
-			this.button1.Location = new System.Drawing.Point(386, 63);
+			this.button1.Location = new System.Drawing.Point(274, 50);
+			this.button1.Margin = new System.Windows.Forms.Padding(2);
 			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(21, 23);
+			this.button1.Size = new System.Drawing.Size(22, 21);
 			this.button1.TabIndex = 27;
 			this.button1.Text = "4";
 			this.button1.UseVisualStyleBackColor = true;
@@ -89,10 +93,11 @@
 			// label7
 			// 
 			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(16, 65);
+			this.label7.Location = new System.Drawing.Point(12, 53);
+			this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label7.Name = "label7";
 			this.label7.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.label7.Size = new System.Drawing.Size(136, 17);
+			this.label7.Size = new System.Drawing.Size(103, 13);
 			this.label7.TabIndex = 25;
 			this.label7.Text = "Scan Failure Sound:";
 			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -100,9 +105,10 @@
 			// SoundSelect
 			// 
 			this.SoundSelect.FormattingEnabled = true;
-			this.SoundSelect.Location = new System.Drawing.Point(158, 62);
+			this.SoundSelect.Location = new System.Drawing.Point(119, 50);
+			this.SoundSelect.Margin = new System.Windows.Forms.Padding(2);
 			this.SoundSelect.Name = "SoundSelect";
-			this.SoundSelect.Size = new System.Drawing.Size(222, 24);
+			this.SoundSelect.Size = new System.Drawing.Size(151, 21);
 			this.SoundSelect.TabIndex = 26;
 			this.SoundSelect.SelectedIndexChanged += new System.EventHandler(this.SoundSelect_SelectedIndexChanged);
 			// 
@@ -115,9 +121,11 @@
 			this.groupBox1.Controls.Add(this.button1);
 			this.groupBox1.Controls.Add(this.label7);
 			this.groupBox1.Controls.Add(this.SoundSelect);
-			this.groupBox1.Location = new System.Drawing.Point(12, 12);
+			this.groupBox1.Location = new System.Drawing.Point(9, 10);
+			this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(426, 135);
+			this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
+			this.groupBox1.Size = new System.Drawing.Size(305, 108);
 			this.groupBox1.TabIndex = 28;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Options";
@@ -125,17 +133,19 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(301, 100);
+			this.label2.Location = new System.Drawing.Point(246, 81);
+			this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(57, 17);
+			this.label2.Size = new System.Drawing.Size(43, 13);
 			this.label2.TabIndex = 30;
 			this.label2.Text = "minutes";
 			// 
 			// timeoutNumeric
 			// 
-			this.timeoutNumeric.Location = new System.Drawing.Point(220, 98);
+			this.timeoutNumeric.Location = new System.Drawing.Point(167, 79);
+			this.timeoutNumeric.Margin = new System.Windows.Forms.Padding(2);
 			this.timeoutNumeric.Name = "timeoutNumeric";
-			this.timeoutNumeric.Size = new System.Drawing.Size(78, 22);
+			this.timeoutNumeric.Size = new System.Drawing.Size(75, 20);
 			this.timeoutNumeric.TabIndex = 29;
 			this.timeoutNumeric.Value = new decimal(new int[] {
             60,
@@ -146,18 +156,20 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(16, 100);
+			this.label1.Location = new System.Drawing.Point(12, 81);
+			this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(198, 17);
+			this.label1.Size = new System.Drawing.Size(151, 13);
 			this.label1.TabIndex = 28;
 			this.label1.Text = "Keep Database Unlocked For:";
 			// 
 			// managePasswordsButton
 			// 
-			this.managePasswordsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.managePasswordsButton.Location = new System.Drawing.Point(94, 173);
+			this.managePasswordsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.managePasswordsButton.Location = new System.Drawing.Point(55, 142);
+			this.managePasswordsButton.Margin = new System.Windows.Forms.Padding(2);
 			this.managePasswordsButton.Name = "managePasswordsButton";
-			this.managePasswordsButton.Size = new System.Drawing.Size(256, 45);
+			this.managePasswordsButton.Size = new System.Drawing.Size(204, 37);
 			this.managePasswordsButton.TabIndex = 31;
 			this.managePasswordsButton.Text = "Manage Password Database";
 			this.managePasswordsButton.UseVisualStyleBackColor = true;
@@ -166,16 +178,16 @@
 			// SettingsForm
 			// 
 			this.AcceptButton = this.saveButton;
-			this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.cancelButton;
-			this.ClientSize = new System.Drawing.Size(452, 302);
+			this.ClientSize = new System.Drawing.Size(324, 250);
 			this.ControlBox = false;
 			this.Controls.Add(this.managePasswordsButton);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.cancelButton);
 			this.Controls.Add(this.saveButton);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+			this.Margin = new System.Windows.Forms.Padding(2);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "SettingsForm";

@@ -23,6 +23,8 @@ namespace gazugafan.fingerpass
 
 		private void SetMasterPasswordForm_Load(object sender, EventArgs e)
 		{
+			this.FormBorderStyle = FormBorderStyle.FixedDialog; //some DPI madness requires this to be set to sizable to start
+
 			SetupForm();
 
 			this.Activate();

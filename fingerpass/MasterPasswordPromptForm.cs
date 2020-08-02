@@ -26,6 +26,8 @@ namespace gazugafan.fingerpass
 
 		private void MasterPasswordPromptForm_Load(object sender, EventArgs e)
 		{
+			this.FormBorderStyle = FormBorderStyle.FixedDialog; //some DPI madness requires this to be set to sizable to start
+
 			if (_prompt != null)
 				instructionsLabel.Text = _prompt + " ";
 			else
