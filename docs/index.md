@@ -91,3 +91,8 @@ Unfortunately, one of the shortcomings of FingerPass (and most other password ma
 There are some possible approaches to mitigating this, but they're difficult to implement and the actual benefits are questionable. FingerPass doesn't employ any of them for now. In any case, if someone steals your computer while it's running, or can otherwise dump your RAM, you should probably consider your password database to be in jeopardy. If your computer is stolen while powered off, the risk should be lower but might still be possible due to RAM paging. None of these exploits would be *easy*, of course, so you would likely have time on your side in a scenario like this.
 
 FingerPass types in passwords for you using .NET's SendKeys--the updated SendInput version introduced in .NET 3.0 (not the JournalHook version). It doesn't use the clipboard.
+
+## Special thanks
+
+* https://github.com/JcBernack/WinBioNET for abstracting the WinBio API into a C# class. I 100% would NOT have bothered doing this without their work.
+* https://github.com/dvoaviarison/fast-ipc for putting together an easy-to-use named pipe IPC mechanism. If it didn't exist when I realized I needed it, I probably would've just given up.
