@@ -1,6 +1,6 @@
 [submodule "WinBioNET"]
 	path = WinBioNET
-	url = git@github.com:gazugafan/WinBioNET.git\
+	url = git@github.com:gazugafan/WinBioNET.git
 [submodule "fast-ipc"]
 	path = fast-ipc
 	url = git@github.com:gazugafan/fast-ipc.git
