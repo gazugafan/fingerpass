@@ -60,14 +60,14 @@
 			// 
 			// currentPasswordLabel
 			// 
-			this.currentPasswordLabel.AutoSize = true;
 			this.currentPasswordLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.currentPasswordLabel.Location = new System.Drawing.Point(14, 128);
+			this.currentPasswordLabel.Location = new System.Drawing.Point(0, 127);
 			this.currentPasswordLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.currentPasswordLabel.Name = "currentPasswordLabel";
-			this.currentPasswordLabel.Size = new System.Drawing.Size(164, 18);
+			this.currentPasswordLabel.Size = new System.Drawing.Size(178, 18);
 			this.currentPasswordLabel.TabIndex = 1;
 			this.currentPasswordLabel.Text = "Your Master Password:";
+			this.currentPasswordLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// passwordTextbox
 			// 

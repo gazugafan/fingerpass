@@ -547,7 +547,7 @@ namespace gazugafan.fingerpass
 										 : passwordsDataGrid.Columns[0].HeaderCell.Size.Height);
 
 					if (relativeY == 0) relativeY = passwordsDataGrid.GetRowDisplayRectangle(passwordsDataGrid.FirstDisplayedScrollingRowIndex, true).Top;
-					int locationX = passwordsDataGrid.Location.X + 1;
+					int locationX = passwordsDataGrid.DisplayRectangle.Left + 2;
 					int locationY = relativeY - (int)Math.Ceiling((double)dividerHeight / 2);
 					Rectangle rectangle = new Rectangle(locationX, locationY, width, dividerHeight);
 

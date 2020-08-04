@@ -58,10 +58,10 @@
 			// closeButton
 			// 
 			this.closeButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.closeButton.Location = new System.Drawing.Point(789, 656);
-			this.closeButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.closeButton.Location = new System.Drawing.Point(592, 533);
+			this.closeButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.closeButton.Name = "closeButton";
-			this.closeButton.Size = new System.Drawing.Size(108, 42);
+			this.closeButton.Size = new System.Drawing.Size(81, 34);
 			this.closeButton.TabIndex = 1;
 			this.closeButton.Text = "Done";
 			this.closeButton.UseVisualStyleBackColor = true;
@@ -77,47 +77,47 @@
             this.toolStripMenuItem2,
             this.deleteToolStripMenuItem});
 			this.passwordMenuStrip.Name = "contextMenuStrip1";
-			this.passwordMenuStrip.Size = new System.Drawing.Size(188, 106);
+			this.passwordMenuStrip.Size = new System.Drawing.Size(162, 98);
 			// 
 			// copyPasswordToolStripMenuItem
 			// 
 			this.copyPasswordToolStripMenuItem.Name = "copyPasswordToolStripMenuItem";
-			this.copyPasswordToolStripMenuItem.Size = new System.Drawing.Size(187, 24);
+			this.copyPasswordToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
 			this.copyPasswordToolStripMenuItem.Text = "Copy Password";
 			this.copyPasswordToolStripMenuItem.Click += new System.EventHandler(this.copyPasswordToolStripMenuItem_Click);
 			// 
 			// moveToTopToolStripMenuItem
 			// 
 			this.moveToTopToolStripMenuItem.Name = "moveToTopToolStripMenuItem";
-			this.moveToTopToolStripMenuItem.Size = new System.Drawing.Size(187, 24);
+			this.moveToTopToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
 			this.moveToTopToolStripMenuItem.Text = "Move to Top";
 			this.moveToTopToolStripMenuItem.Click += new System.EventHandler(this.moveToTopToolStripMenuItem_Click);
 			// 
 			// moveToBottomToolStripMenuItem
 			// 
 			this.moveToBottomToolStripMenuItem.Name = "moveToBottomToolStripMenuItem";
-			this.moveToBottomToolStripMenuItem.Size = new System.Drawing.Size(187, 24);
+			this.moveToBottomToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
 			this.moveToBottomToolStripMenuItem.Text = "Move to Bottom";
 			this.moveToBottomToolStripMenuItem.Click += new System.EventHandler(this.moveToBottomToolStripMenuItem_Click);
 			// 
 			// toolStripMenuItem2
 			// 
 			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-			this.toolStripMenuItem2.Size = new System.Drawing.Size(184, 6);
+			this.toolStripMenuItem2.Size = new System.Drawing.Size(158, 6);
 			// 
 			// deleteToolStripMenuItem
 			// 
 			this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(187, 24);
+			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
 			this.deleteToolStripMenuItem.Text = "Delete";
 			this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
 			// 
 			// changeMasterPasswordButton
 			// 
-			this.changeMasterPasswordButton.Location = new System.Drawing.Point(12, 656);
-			this.changeMasterPasswordButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.changeMasterPasswordButton.Location = new System.Drawing.Point(9, 533);
+			this.changeMasterPasswordButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.changeMasterPasswordButton.Name = "changeMasterPasswordButton";
-			this.changeMasterPasswordButton.Size = new System.Drawing.Size(245, 42);
+			this.changeMasterPasswordButton.Size = new System.Drawing.Size(184, 34);
 			this.changeMasterPasswordButton.TabIndex = 29;
 			this.changeMasterPasswordButton.Text = "Change Master Password";
 			this.changeMasterPasswordButton.UseVisualStyleBackColor = true;
@@ -125,10 +125,10 @@
 			// 
 			// exportButton
 			// 
-			this.exportButton.Location = new System.Drawing.Point(264, 656);
-			this.exportButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.exportButton.Location = new System.Drawing.Point(198, 533);
+			this.exportButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.exportButton.Name = "exportButton";
-			this.exportButton.Size = new System.Drawing.Size(159, 42);
+			this.exportButton.Size = new System.Drawing.Size(119, 34);
 			this.exportButton.TabIndex = 30;
 			this.exportButton.Text = "Export Database";
 			this.exportButton.UseVisualStyleBackColor = true;
@@ -136,10 +136,10 @@
 			// 
 			// importButton
 			// 
-			this.importButton.Location = new System.Drawing.Point(428, 656);
-			this.importButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.importButton.Location = new System.Drawing.Point(321, 533);
+			this.importButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.importButton.Name = "importButton";
-			this.importButton.Size = new System.Drawing.Size(168, 42);
+			this.importButton.Size = new System.Drawing.Size(126, 34);
 			this.importButton.TabIndex = 31;
 			this.importButton.Text = "Import Database";
 			this.importButton.UseVisualStyleBackColor = true;
@@ -153,8 +153,8 @@
 			this.passwordsDataGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
 			this.passwordsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.passwordsDataGrid.ContextMenuStrip = this.passwordMenuStrip;
-			this.passwordsDataGrid.Location = new System.Drawing.Point(12, 134);
-			this.passwordsDataGrid.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.passwordsDataGrid.Location = new System.Drawing.Point(9, 109);
+			this.passwordsDataGrid.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.passwordsDataGrid.MultiSelect = false;
 			this.passwordsDataGrid.Name = "passwordsDataGrid";
 			this.passwordsDataGrid.RowHeadersWidth = 51;
@@ -162,7 +162,7 @@
 			this.passwordsDataGrid.RowTemplate.Height = 24;
 			this.passwordsDataGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.passwordsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.passwordsDataGrid.Size = new System.Drawing.Size(884, 418);
+			this.passwordsDataGrid.Size = new System.Drawing.Size(663, 340);
 			this.passwordsDataGrid.TabIndex = 32;
 			this.passwordsDataGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.passwordsDataGrid_CellBeginEdit);
 			this.passwordsDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.passwordsDataGrid_CellContentClick);
@@ -178,50 +178,57 @@
 			// 
 			// label1
 			// 
-			this.label1.AutoSize = true;
 			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.Location = new System.Drawing.Point(16, 9);
+			this.label1.Location = new System.Drawing.Point(3, 7);
+			this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(231, 24);
+			this.label1.Size = new System.Drawing.Size(197, 20);
 			this.label1.TabIndex = 33;
 			this.label1.Text = "Current Program Name:";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// label2
 			// 
-			this.label2.AutoSize = true;
 			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label2.Location = new System.Drawing.Point(35, 38);
+			this.label2.Location = new System.Drawing.Point(6, 31);
+			this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(212, 24);
+			this.label2.Size = new System.Drawing.Size(194, 20);
 			this.label2.TabIndex = 34;
 			this.label2.Text = "Current Window Title:";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// programLabel
 			// 
 			this.programLabel.AutoEllipsis = true;
 			this.programLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.programLabel.Location = new System.Drawing.Point(268, 9);
+			this.programLabel.Location = new System.Drawing.Point(201, 7);
+			this.programLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.programLabel.Name = "programLabel";
-			this.programLabel.Size = new System.Drawing.Size(628, 25);
+			this.programLabel.Size = new System.Drawing.Size(471, 20);
 			this.programLabel.TabIndex = 35;
 			this.programLabel.Text = "           This window will stay on top. Click on another window to see";
+			this.programLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// windowLabel
 			// 
 			this.windowLabel.AutoEllipsis = true;
 			this.windowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.windowLabel.Location = new System.Drawing.Point(268, 38);
+			this.windowLabel.Location = new System.Drawing.Point(201, 31);
+			this.windowLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.windowLabel.Name = "windowLabel";
-			this.windowLabel.Size = new System.Drawing.Size(628, 25);
+			this.windowLabel.Size = new System.Drawing.Size(471, 20);
 			this.windowLabel.TabIndex = 36;
 			this.windowLabel.Text = "           how FingerPass reads its Program Name and Window Title,";
+			this.windowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(9, 111);
+			this.label3.Location = new System.Drawing.Point(7, 90);
+			this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(124, 17);
+			this.label3.Size = new System.Drawing.Size(95, 13);
 			this.label3.TabIndex = 37;
 			this.label3.Text = "Saved Passwords:";
 			// 
@@ -229,9 +236,10 @@
 			// 
 			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label4.ForeColor = System.Drawing.SystemColors.InfoText;
-			this.label4.Location = new System.Drawing.Point(71, 556);
+			this.label4.Location = new System.Drawing.Point(53, 452);
+			this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(825, 85);
+			this.label4.Size = new System.Drawing.Size(619, 69);
 			this.label4.TabIndex = 38;
 			this.label4.Text = resources.GetString("label4.Text");
 			// 
@@ -239,37 +247,40 @@
 			// 
 			this.currentMatchLabel.AutoEllipsis = true;
 			this.currentMatchLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.currentMatchLabel.Location = new System.Drawing.Point(268, 68);
+			this.currentMatchLabel.Location = new System.Drawing.Point(201, 55);
+			this.currentMatchLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.currentMatchLabel.Name = "currentMatchLabel";
-			this.currentMatchLabel.Size = new System.Drawing.Size(628, 25);
+			this.currentMatchLabel.Size = new System.Drawing.Size(471, 20);
 			this.currentMatchLabel.TabIndex = 40;
 			this.currentMatchLabel.Text = "           then use that to create your password entries below...";
+			this.currentMatchLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// label6
 			// 
-			this.label6.AutoSize = true;
 			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label6.Location = new System.Drawing.Point(17, 68);
+			this.label6.Location = new System.Drawing.Point(6, 55);
+			this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(230, 24);
+			this.label6.Size = new System.Drawing.Size(194, 20);
 			this.label6.TabIndex = 39;
 			this.label6.Text = "Current Matching Entry:";
+			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// instructionsPictureBox
 			// 
-			this.instructionsPictureBox.Location = new System.Drawing.Point(15, 559);
-			this.instructionsPictureBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.instructionsPictureBox.Location = new System.Drawing.Point(11, 454);
+			this.instructionsPictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.instructionsPictureBox.Name = "instructionsPictureBox";
-			this.instructionsPictureBox.Size = new System.Drawing.Size(53, 66);
+			this.instructionsPictureBox.Size = new System.Drawing.Size(40, 54);
 			this.instructionsPictureBox.TabIndex = 41;
 			this.instructionsPictureBox.TabStop = false;
 			// 
 			// DatabaseForm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.closeButton;
-			this.ClientSize = new System.Drawing.Size(911, 711);
+			this.ClientSize = new System.Drawing.Size(683, 578);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.instructionsPictureBox);
 			this.Controls.Add(this.currentMatchLabel);
@@ -284,7 +295,7 @@
 			this.Controls.Add(this.exportButton);
 			this.Controls.Add(this.changeMasterPasswordButton);
 			this.Controls.Add(this.closeButton);
-			this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "DatabaseForm";

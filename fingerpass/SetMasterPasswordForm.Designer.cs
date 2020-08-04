@@ -65,33 +65,33 @@
 			// 
 			// currentPasswordLabel
 			// 
-			this.currentPasswordLabel.AutoSize = true;
-			this.currentPasswordLabel.Location = new System.Drawing.Point(42, 120);
+			this.currentPasswordLabel.Location = new System.Drawing.Point(17, 120);
 			this.currentPasswordLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.currentPasswordLabel.Name = "currentPasswordLabel";
-			this.currentPasswordLabel.Size = new System.Drawing.Size(128, 13);
+			this.currentPasswordLabel.Size = new System.Drawing.Size(153, 13);
 			this.currentPasswordLabel.TabIndex = 2;
 			this.currentPasswordLabel.Text = "Current Master Password:";
+			this.currentPasswordLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// label2
 			// 
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(54, 154);
+			this.label2.Location = new System.Drawing.Point(14, 154);
 			this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(116, 13);
+			this.label2.Size = new System.Drawing.Size(156, 13);
 			this.label2.TabIndex = 3;
 			this.label2.Text = "New Master Password:";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// label3
 			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(17, 188);
+			this.label3.Location = new System.Drawing.Point(11, 188);
 			this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(153, 13);
+			this.label3.Size = new System.Drawing.Size(159, 13);
 			this.label3.TabIndex = 4;
 			this.label3.Text = "Retype New Master Password:";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// currentPasswordTextbox
 			// 

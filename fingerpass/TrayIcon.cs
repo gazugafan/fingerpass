@@ -61,23 +61,14 @@ namespace gazugafan.fingerpass.tray
 			_iconRed = new Icon(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Icons/red.ico"));
 			_iconGreen = new Icon(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Icons/green.ico"));
 
-			try
-			{
-				//create bus with service...
-				var pipeName = new SimpleStringPipeName(
-					name: "gazugafanFingerpass",
-					side: Side.Out
-				);
-				bus = new NamedPipeBus(pipeName: pipeName);
-				_busHandler = new BusHandler(bus, this);
-			}
-			catch(Exception)
-			{
-				MessageBox.Show("There was a problem connecting to the FingerPass Windows service. Maybe another user is logged on and using FingerPass already?", "FingerPass", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
+			//connect to the service...
+			ConnectToService();
 
 			//handle shutdown or logoff...
 			SystemEvents.SessionEnded += OnShutdown;
+
+			//handle user switch...
+			SystemEvents.SessionSwitch += OnSessionSwitch;
 
 			//create the tray icon...
 			_notifyIcon = CreateNotifyIcon();
@@ -92,6 +83,72 @@ namespace gazugafan.fingerpass.tray
 
 			//get the status from the service (also announcing that the tray icon is now available)...
 			Publish(new GetStatus());
+		}
+
+		private void ConnectToService()
+		{
+			try
+			{
+				//create bus with service...
+				var pipeName = new SimpleStringPipeName(
+					name: "gazugafanFingerpass",
+					side: Side.Out
+				);
+				bus = new NamedPipeBus(pipeName: pipeName);
+				_busHandler = new BusHandler(bus, this);
+			}
+			catch (Exception)
+			{
+				MessageBox.Show("There was a problem connecting to the FingerPass Windows service. Maybe another user is logged on and using FingerPass already?", "FingerPass", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+		private void DisconnectFromService()
+		{
+			try
+			{
+				if (bus != null)
+				{
+					if (_busHandler != null)
+					{
+						_busHandler = null;
+					}
+					bus.Dispose();
+					bus = null;
+				}
+			}
+			catch (Exception)
+			{
+			}
+		}
+
+		/// <summary>
+		/// When switching to a different user, disconnect from the bus.
+		/// When switching back, reconnect to the bus
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnSessionSwitch(object sender, SessionSwitchEventArgs e)
+		{
+			try
+			{
+				if (e.Reason == SessionSwitchReason.ConsoleDisconnect) //switching to a different user
+				{
+					Publish(new TrayClose());
+
+					//wait a second for the message to be sent before disconnecting from the bus...
+					Task.Delay(1000).ContinueWith(t => DisconnectFromService());
+				}
+				else if (e.Reason == SessionSwitchReason.ConsoleConnect) //switching back to this user
+				{
+					ConnectToService();
+
+					//wait a second for the bus to reconnect before sending the alive message...
+					Task.Delay(1000).ContinueWith(t => Publish(new GetStatus()));
+				}
+			}
+			catch (Exception)
+			{ }
 		}
 
 		/// <summary>
@@ -518,7 +575,8 @@ namespace gazugafan.fingerpass.tray
 					{
 						using (cts.Token.Register(Thread.CurrentThread.Abort))
 						{
-							bus.Publish(msg);
+							if (bus != null)
+								bus.Publish(msg);
 						}
 					}
 					catch (Exception e)

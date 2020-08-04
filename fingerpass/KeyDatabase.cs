@@ -545,6 +545,9 @@ namespace gazugafan.fingerpass
 		/// <returns></returns>
 		public static bool WildcardMatch(string test, string pattern)
 		{
+			if (pattern == "" || pattern == null)
+				return true;
+
 			string escaped = "(?i)^" + Regex.Escape(pattern).Replace("\\?", ".").Replace("\\*", ".*") + "$";
 			return Regex.IsMatch(test, escaped);
 		}

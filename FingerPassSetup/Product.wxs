@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension"><?define fingerpass_TargetDir=$(var.fingerpass.TargetDir)?><?define messages_TargetDir=$(var.messages.TargetDir)?><?define fingerpass_service_TargetDir=$(var.fingerpass_service.TargetDir)?><?define WinBioNET_TargetDir=$(var.WinBioNET.TargetDir)?><?define NetFx472MinRelease = 461808 ?>
 	
-	<Product Id="7d18a496-a136-493f-9496-e763a813b6a5" Name="FingerPass" Language="1033" Version="1.0.0.0" Manufacturer="gazugafan" UpgradeCode="5d4bb806-c91a-4e53-aa21-d5540284d3dc">
+	<Product Id="d8219647-c1d3-4a10-b719-075bc08d3895" Name="FingerPass" Language="1033" Version="1.0.0.0" Manufacturer="gazugafan" UpgradeCode="5d4bb806-c91a-4e53-aa21-d5540284d3dc">
 		
 		<Package Description="A fingerprint-enabled password manager" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 		
@@ -49,16 +49,6 @@
 			WIXNETFX4RELEASEINSTALLED >= "#$(var.NetFx472MinRelease)"
 		</SetProperty>
 	</Fragment>
-	
-	<Fragment>
-		<DirectoryRef Id="ApplicationProgramsFolder">
-			<Component Id="ApplicationShortcut" Guid="0af417fc-7138-4cc1-ac14-3e73a67f62a2">
-				<Shortcut Icon="icon.ico" Id="ApplicationStartMenuShortcut" Name="FingerPass" Description="FingerPass" Target="[INSTALLFOLDER]fingerpass.exe" WorkingDirectory="INSTALLFOLDER" />
-				<RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall" />
-				<RegistryValue Root="HKCU" Key="Software\FingerPass" Name="installed" Type="integer" Value="1" KeyPath="yes" />
-			</Component>
-		</DirectoryRef>
-	</Fragment>
 
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
@@ -67,11 +57,25 @@
 				  <Directory Id="Sounds" Name="Sounds" />
 				  <Directory Id="Icons" Name="Icons" />
 				</Directory>
-				<Directory Id="ProgramMenuFolder">
-					<Directory Id="ApplicationProgramsFolder" Name="FingerPass" />
-				</Directory>
+			</Directory>
+			<Directory Id="ProgramMenuFolder">
+				<Directory Id="ApplicationProgramsFolder" Name="FingerPass"/>
 			</Directory>
 		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<DirectoryRef Id="ApplicationProgramsFolder">
+			<Component Id="ApplicationShortcut" Guid="720bb588-6dfb-4606-ae8e-2a4bedd5b3c8">
+				<Shortcut Id="ApplicationStartMenuShortcut"
+                     Name="FingerPass"
+                   Description="FingerPass"
+                    Target="[#fingerpass.exe]"
+                          WorkingDirectory="APPLICATIONROOTDIRECTORY"/>
+				<RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+				<RegistryValue Root="HKCU" Key="Software\FingerPass" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+			</Component>
+		</DirectoryRef>
 	</Fragment>
 
 	<Fragment>
