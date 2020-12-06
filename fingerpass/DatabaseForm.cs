@@ -43,21 +43,24 @@ namespace gazugafan.fingerpass
 		{
 			this.FormBorderStyle = FormBorderStyle.FixedDialog; //some DPI madness requires this to be set to sizable to start
 
-			int[] widths = new int[5];
-			widths[0] = 25;
-			widths[1] = 25;
-			widths[2] = 25;
+			int[] widths = new int[6];
+			widths[0] = 20;
+			widths[1] = 20;
+			widths[2] = 20;
 			widths[3] = 15;
-			widths[4] = 10;
+			widths[4] = 15;
+			widths[5] = 10;
 
 			passwordsDataGrid.Columns.Add("programNameColumn", "Program Name");
 			passwordsDataGrid.Columns.Add("windowTitleColumn", "Window Title");
 			passwordsDataGrid.Columns.Add("passwordColumn", "Password");
 			passwordsDataGrid.Columns.Add(new DataGridViewCheckBoxColumn());
+			passwordsDataGrid.Columns.Add(new DataGridViewCheckBoxColumn());
 			passwordsDataGrid.Columns.Add(new DataGridViewLinkColumn());
 
 			passwordsDataGrid.Columns[3].HeaderText = "Press Enter?";
-			passwordsDataGrid.Columns[4].HeaderText = "Actions";
+			passwordsDataGrid.Columns[4].HeaderText = "Just Copy?";
+			passwordsDataGrid.Columns[5].HeaderText = "Actions";
 
 			//set column widths based on percents, and other options...
 			passwordsDataGrid.RowHeadersWidth = 50;
@@ -86,6 +89,7 @@ namespace gazugafan.fingerpass
 				row.Cells[1].Value = _newWindowTitle;
 				row.Cells[2].Value = "";
 				row.Cells[3].Value = true;
+				row.Cells[4].Value = false;
 
 				row.Cells[2].Selected = true;
 				passwordsDataGrid.BeginEdit(true);
@@ -164,6 +168,7 @@ namespace gazugafan.fingerpass
 				row.Cells.Add(new DataGridViewTextBoxCell());
 				row.Cells.Add(new DataGridViewTextBoxCell());
 				row.Cells.Add(new DataGridViewCheckBoxCell());
+				row.Cells.Add(new DataGridViewCheckBoxCell());
 				row.Cells.Add(new DataGridViewLinkCell());
 				updatePasswordCells(row, password);
 
@@ -186,9 +191,10 @@ namespace gazugafan.fingerpass
 			row.Cells[1].Value = password.Title;
 			row.Cells[2].Value = defaultPassword;
 			row.Cells[3].Value = password.PressEnter;
-			row.Cells[4].Value = "Delete";
-			(row.Cells[4] as DataGridViewLinkCell).LinkBehavior = LinkBehavior.HoverUnderline;
-			(row.Cells[4] as DataGridViewLinkCell).TrackVisitedState = false;
+			row.Cells[4].Value = password.UseClipboard;
+			row.Cells[5].Value = "Delete";
+			(row.Cells[5] as DataGridViewLinkCell).LinkBehavior = LinkBehavior.HoverUnderline;
+			(row.Cells[5] as DataGridViewLinkCell).TrackVisitedState = false;
 		}
 
 		private void saveButton_Click(object sender, EventArgs e)
@@ -270,7 +276,7 @@ namespace gazugafan.fingerpass
 			if (e.RowIndex >= 0)
 			{
 				DataGridViewCell cell = passwordsDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex];
-				if (cell.ColumnIndex == 4)
+				if (cell.ColumnIndex == 5)
 				{
 					DeletedPassword(cell.RowIndex);
 				}
@@ -342,11 +348,12 @@ namespace gazugafan.fingerpass
 							string program = (row.Cells[0].Value != null) ? row.Cells[0].Value.ToString():"";
 							string window = (row.Cells[1].Value != null) ? row.Cells[1].Value.ToString():"";
 							bool enter = (row.Cells[3].Value != null) ? (bool)row.Cells[3].Value : false;
+							bool clipboard = (row.Cells[4].Value != null) ? (bool)row.Cells[4].Value : false;
 							string password = row.Cells[2].Value.ToString();
 
 							if (isRowNew)
 							{
-								updatedPassword = Program.keyDatabase.AddOrUpdate(program, window, enter, password);
+								updatedPassword = Program.keyDatabase.AddOrUpdate(program, window, enter, clipboard, password);
 							}
 							else
 							{
@@ -366,7 +373,7 @@ namespace gazugafan.fingerpass
 									return;
 								}
 
-								updatedPassword = Program.keyDatabase.UpdateIndex(row.Index, program, window, enter, password);
+								updatedPassword = Program.keyDatabase.UpdateIndex(row.Index, program, window, enter, clipboard, password);
 							}
 
 							updatePasswordCells(row, updatedPassword);

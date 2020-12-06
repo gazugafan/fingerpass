@@ -35,7 +35,10 @@ namespace gazugafan.fingerpass
 
 			instructionsLabel.Text += "Please enter your master password to continue...";
 
+			this.ShowInTaskbar = true;
 			this.Activate();
+			this.BringToFront();
+			this.TopMost = true;
 		}
 
 		private void continueButton_Click(object sender, EventArgs e)

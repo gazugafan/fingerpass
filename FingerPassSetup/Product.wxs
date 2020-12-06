@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension"><?define fingerpass_TargetDir=$(var.fingerpass.TargetDir)?><?define messages_TargetDir=$(var.messages.TargetDir)?><?define fingerpass_service_TargetDir=$(var.fingerpass_service.TargetDir)?><?define WinBioNET_TargetDir=$(var.WinBioNET.TargetDir)?><?define NetFx472MinRelease = 461808 ?>
 	
-	<Product Id="d8219647-c1d3-4a10-b719-075bc08d3895" Name="FingerPass" Language="1033" Version="1.0.0.0" Manufacturer="gazugafan" UpgradeCode="5d4bb806-c91a-4e53-aa21-d5540284d3dc">
+	<Product Id="d8219647-c1d3-4a10-b719-075bc08d3895" Name="FingerPass" Language="1033" Version="1.1.0.0" Manufacturer="gazugafan" UpgradeCode="5d4bb806-c91a-4e53-aa21-d5540284d3dc">
 		
 		<Package Description="A fingerprint-enabled password manager" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 		

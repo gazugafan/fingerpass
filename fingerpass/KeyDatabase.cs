@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
@@ -135,6 +136,7 @@ namespace gazugafan.fingerpass
 				newDatabasePassword.Program = password.Program;
 				newDatabasePassword.Title = password.Title;
 				newDatabasePassword.PressEnter = password.PressEnter;
+				newDatabasePassword.UseClipboard = password.UseClipboard;
 				newDatabasePassword.PasswordHash = password.DecryptedPassword();
 				newDatabase.Passwords.Add(newDatabasePassword);
 			});
@@ -175,6 +177,7 @@ namespace gazugafan.fingerpass
 						newDatabasePassword.Program = password.Program;
 						newDatabasePassword.Title = password.Title;
 						newDatabasePassword.PressEnter = password.PressEnter;
+						newDatabasePassword.UseClipboard = password.UseClipboard;
 						newDatabasePassword.PasswordHash = password.DecryptedPassword(); //temporarily store in clear text
 						newDatabase.Passwords.Add(newDatabasePassword);
 					});
@@ -389,8 +392,9 @@ namespace gazugafan.fingerpass
 		/// <param name="programName">The program name that the password belongs to</param>
 		/// <param name="windowTitle">The window title that the password belongs to</param>
 		/// <param name="pressEnter">Whether or not to automatically press enter after the password is typed</param>
+		/// <param name="useClipboard">Whether or not to type this password using the clipboard via copy/paste</param>
 		/// <param name="clearPassword">The password in clear text, which will be encrypted. If left null, the password is not updated.</param>
-		public Password UpdateIndex(int index, string programName, string windowTitle, bool pressEnter, string clearPassword = null)
+		public Password UpdateIndex(int index, string programName, string windowTitle, bool pressEnter, bool useClipboard, string clearPassword = null)
 		{
 			int existingIndex = FindPasswordIndex(programName, windowTitle);
 			if (existingIndex >= 0 && existingIndex != index)
@@ -402,6 +406,7 @@ namespace gazugafan.fingerpass
 				database.Passwords[index].Program = programName;
 				database.Passwords[index].Title = windowTitle;
 				database.Passwords[index].PressEnter = pressEnter;
+				database.Passwords[index].UseClipboard = useClipboard;
 
 				if (clearPassword != null)
 					database.Passwords[index].PasswordHash = Protect(clearPassword);
@@ -422,10 +427,11 @@ namespace gazugafan.fingerpass
 		/// <param name="programName">The program name that the password belongs to</param>
 		/// <param name="windowTitle">The window title that the password belongs to</param>
 		/// <param name="pressEnter">Whether or not to automatically press enter after the password is typed</param>
+		/// <param name="useClipboard">Whether or not to type this password using the clipboard via copy/paste</param>
 		/// <param name="clearPassword">The password in clear text, which will be encrypted</param>
 		/// <param name="oldProgramName">If specified along with oldWindowTitle, this entry will be replaced with the new one</param>
 		/// <param name="oldWindowTitle">If specified along with oldProgramName, this entry will be replaced with the new one</param>
-		public Password AddOrUpdate(string programName, string windowTitle, bool pressEnter, string clearPassword, string oldProgramName = null, string oldWindowTitle = null)
+		public Password AddOrUpdate(string programName, string windowTitle, bool pressEnter, bool useClipboard, string clearPassword, string oldProgramName = null, string oldWindowTitle = null)
 		{
 			int index = -1;
 
@@ -446,6 +452,7 @@ namespace gazugafan.fingerpass
 				database.Passwords[index].Program = programName;
 				database.Passwords[index].Title = windowTitle;
 				database.Passwords[index].PressEnter = pressEnter;
+				database.Passwords[index].UseClipboard = useClipboard;
 				database.Passwords[index].PasswordHash = Protect(clearPassword);
 
 				Save();
@@ -458,6 +465,7 @@ namespace gazugafan.fingerpass
 				password.Program = programName;
 				password.Title = windowTitle;
 				password.PressEnter = pressEnter;
+				password.UseClipboard = useClipboard;
 				password.PasswordHash = Protect(clearPassword);
 				database.Passwords.Add(password);
 
@@ -661,6 +669,7 @@ namespace gazugafan.fingerpass
 		public string Title { get; set; }
 		public string PasswordHash { get; set; }
 		public bool PressEnter { get; set; } = true;
+		public bool UseClipboard { get; set; } = false;
 
 		/// <summary>
 		/// Returns the decrypted password in clear text
@@ -683,14 +692,28 @@ namespace gazugafan.fingerpass
 		/// </summary>
 		public void Type()
 		{
-			//decrypt password and escape special characters that SendKeys uses...
-			string password = Regex.Replace(DecryptedPassword(), "[+^%~()]", "{$0}");
+			if (this.UseClipboard)
+			{
+				//clipboard access must be done on an STA thread...
+				Thread thread = new Thread(() =>
+				{
+					Clipboard.SetText(DecryptedPassword());
+				});
+				thread.SetApartmentState(ApartmentState.STA); //Set the thread to STA
+				thread.Start();
+				thread.Join(); //Wait for the thread to end
+			}
+			else
+			{
+				//decrypt password and escape special characters that SendKeys uses...
+				string password = Regex.Replace(DecryptedPassword(), "[+^%~()]", "{$0}");
 
-			//maybe add an ENTER keypress...
-			if (this.PressEnter)
-				password += "{ENTER}";
+				//maybe add an ENTER keypress...
+				if (this.PressEnter)
+					password += "{ENTER}";
 
-			SendKeys.SendWait(password);
+				SendKeys.SendWait(password);
+			}
 		}
 	}
 }

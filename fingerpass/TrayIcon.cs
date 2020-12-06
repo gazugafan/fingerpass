@@ -182,13 +182,21 @@ namespace gazugafan.fingerpass.tray
 			if (_isDisposed) throw new ObjectDisposedException("_notifyIcon");
 			_notifyIcon.Visible = true;
 
-			//on first run, add to startup...
+			//do some setup on the first run...
 			if (Properties.Settings.Default.FirstRun)
 			{
-				Properties.Settings.Default.FirstRun = false;
+				//try upgrading settings from a previous version...
+				Properties.Settings.Default.Upgrade();
+
+				//if still the first run, add to startup...
+				if (Properties.Settings.Default.FirstRun)
+				{
+					Properties.Settings.Default.FirstRun = false;
+					RegistryKey startupKeys = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+					startupKeys.SetValue(Application.ProductName, Application.ExecutablePath);
+				}
+
 				Properties.Settings.Default.Save();
-				RegistryKey startupKeys = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-				startupKeys.SetValue(Application.ProductName, Application.ExecutablePath);
 			}
 
 			//if salts haven't been set yet, set them...
