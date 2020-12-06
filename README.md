@@ -50,7 +50,9 @@ More importantly, select "Manage Passwords" from the settings or tray-icon to ma
 
 <img src="https://raw.githubusercontent.com/gazugafan/fingerpass/master/docs/database.png">
 
-This is where you'll save all the passwords that FingerPass will type in for you later. Each password includes a Program Name and a Window Title. Later, when you scan your fingerprint, FingerPass will look through your password database for a password with a Program Name and Window Title that matches the window you're currently working in. If a match is found, the password is typed into your program for you. If you checked the "Press Enter?" box, FingerPass will even press ENTER after typing in the password for you.
+This is where you'll save all the passwords that FingerPass will type in for you later. Each password includes a Program Name and a Window Title. Later, when you scan your fingerprint, FingerPass will look through your password database for a password with a Program Name and Window Title that matches the window you're currently working in. If a match is found, the password is typed into your program for you. If you checked the "Press Enter?" box, FingerPass will even press ENTER after typing in the password for you. 
+
+Alternatively, you can check the "Just Copy?" checkbox to have the password copied to the clipboard instead of typed in. You can then paste the password yourself using CTRL+V, etc. This is a useful workaround for programs that don't play nice accepting automated keystrokes. However, keep in mind that your password will then be left on the clipboard in plaintext, and whatever was on the clipboard previously will be overwritten.
 
 The Program Name and Window Title don't need to be exact matches. You can use wildcard characters * or ? to match any number of characters or any single character. For example, if you enter "\*something\*" for the Window Title (without the quotes), this would match any window title containing the word "something". Matches are also always case-INsensitive.
 
